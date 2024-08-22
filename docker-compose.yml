@@ -1,16 +1,15 @@
+---
 version: '3'
 
 services:
   voltronic-mqtt:
-
     # We're now (finally) supporting Multi-Arch builds (via Github actions) on Docker Hub!
     image: bushrangers/ha-voltronic-mqtt
 
     # Uncomment if you want to build your own local version.
-     build:
-       context: .
-       dockerfile: Dockerfile.dev
-
+    # build:
+    #   context: .
+    #   dockerfile: Dockerfile.dev
 
     container_name: voltronic-mqtt
 
@@ -18,17 +17,17 @@ services:
     restart: always
 
     volumes:
-        - ./config/:/etc/inverter/
+      - ./config/:/etc/inverter/
 
     devices:
-    #  - "/dev/mem:/dev/mem"
+      # - "/dev/mem:/dev/mem"
 
-    # USB Port Mapping
+      # USB Port Mapping
       - /dev/bus/usb:/dev/bus/usb:rwm
       - /dev/ttyUSB0:/dev/ttyUSB0:rwm
       - /dev/ttyUSB1:/dev/ttyUSB1:rwm
 
-    # Serial Port Mapping...
+      # Serial Port Mapping...
       - /dev/ttyS0:/dev/ttyS0
       - /dev/ttyS1:/dev/ttyS1
       - /dev/ttyS2:/dev/ttyS2
@@ -47,4 +46,3 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
 
     command: --interval 500
-
